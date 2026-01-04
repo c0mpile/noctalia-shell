@@ -382,6 +382,9 @@ Singleton {
       property string wallhavenResolutionMode: "atleast" // "atleast" or "exact"
       property string wallhavenResolutionWidth: ""
       property string wallhavenResolutionHeight: ""
+      // Panel size and grid layout settings
+      property real panelHeightRatio: 0.45 // Range 0.45 - 0.95
+      property int rowCount: 2 // Number of rows to display in the grid
     }
 
     // applauncher
