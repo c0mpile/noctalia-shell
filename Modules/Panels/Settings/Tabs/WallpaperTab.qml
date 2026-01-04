@@ -188,6 +188,36 @@ ColumnLayout {
       isSettings: true
       defaultValue: Settings.getDefaultValue("wallpaper.panelPosition")
     }
+
+    // Panel Height (ratio of screen height)
+    NValueSlider {
+      Layout.fillWidth: true
+      label: I18n.tr("settings.wallpaper.settings.panel-height.label")
+      description: I18n.tr("settings.wallpaper.settings.panel-height.description")
+      from: 0.45
+      to: 0.95
+      stepSize: 0.05
+      value: Settings.data.wallpaper.panelHeightRatio
+      isSettings: true
+      defaultValue: Settings.getDefaultValue("wallpaper.panelHeightRatio")
+      onMoved: value => Settings.data.wallpaper.panelHeightRatio = value
+      text: Math.round(Settings.data.wallpaper.panelHeightRatio * 100) + "%"
+    }
+
+    // Number of rows to display in grid
+    NValueSlider {
+      Layout.fillWidth: true
+      label: I18n.tr("settings.wallpaper.settings.row-count.label")
+      description: I18n.tr("settings.wallpaper.settings.row-count.description")
+      from: 1
+      to: 5
+      stepSize: 1
+      value: Settings.data.wallpaper.rowCount
+      isSettings: true
+      defaultValue: Settings.getDefaultValue("wallpaper.rowCount")
+      onMoved: value => Settings.data.wallpaper.rowCount = value
+      text: String(Settings.data.wallpaper.rowCount)
+    }
   }
 
   NDivider {

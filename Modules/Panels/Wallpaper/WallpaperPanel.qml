@@ -15,7 +15,7 @@ SmartPanel {
   preferredWidth: 800 * Style.uiScaleRatio
   preferredHeight: 600 * Style.uiScaleRatio
   preferredWidthRatio: 0.5
-  preferredHeightRatio: 0.45
+  preferredHeightRatio: Settings.data.wallpaper.panelHeightRatio
 
   // Positioning
   readonly property string panelPosition: {
@@ -707,11 +707,25 @@ SmartPanel {
           }
         }
 
-        property int columns: (screen.width > 1920) ? 5 : 4
-        property int itemSize: cellWidth
+        // Row-driven grid layout: calculate cellHeight first based on rowCount
+        // Label height offset accounts for filename text when visible
+        readonly property real labelOffset: Settings.data.wallpaper.hideWallpaperFilenames ? 0 : (Style.marginXS + Style.fontSizeXS + Style.marginM)
+        // Available height for grid items (excluding margins)
+        readonly property real availableHeight: height - topMargin - bottomMargin
 
+        // Calculate cellHeight based on number of rows to display
+        cellHeight: Math.floor(availableHeight / Settings.data.wallpaper.rowCount)
+
+        // Calculate itemSize from cellHeight (image area = cellHeight - labelOffset)
+        // Image aspect ratio is 0.67 (height/width), so width = imageHeight / 0.67
+        readonly property real imageHeight: cellHeight - labelOffset - Style.marginXS * 2
+        property int itemSize: Math.floor(imageHeight / 0.67)
+
+        // Calculate columns based on itemSize
+        property int columns: Math.max(1, Math.floor((width - leftMargin - rightMargin) / itemSize))
+
+        // Recalculate cellWidth to fill available width evenly
         cellWidth: Math.floor((width - leftMargin - rightMargin) / columns)
-        cellHeight: Math.floor(itemSize * 0.7) + Style.marginXS + Style.fontSizeXS + Style.marginM
 
         leftMargin: Style.marginS
         rightMargin: Style.marginS
@@ -1081,11 +1095,25 @@ SmartPanel {
             currentIndex = -1;
           }
 
-          property int columns: (screen.width > 1920) ? 5 : 4
-          property int itemSize: cellWidth
+          // Row-driven grid layout: calculate cellHeight first based on rowCount
+          // Label height offset accounts for filename text when visible
+          readonly property real labelOffset: Settings.data.wallpaper.hideWallpaperFilenames ? 0 : (Style.marginXS + Style.fontSizeXS + Style.marginM)
+          // Available height for grid items (excluding margins)
+          readonly property real availableHeight: height - topMargin - bottomMargin
 
+          // Calculate cellHeight based on number of rows to display
+          cellHeight: Math.floor(availableHeight / Settings.data.wallpaper.rowCount)
+
+          // Calculate itemSize from cellHeight (image area = cellHeight - labelOffset)
+          // Image aspect ratio is 0.67 (height/width), so width = imageHeight / 0.67
+          readonly property real imageHeight: cellHeight - labelOffset - Style.marginXS * 2
+          property int itemSize: Math.floor(imageHeight / 0.67)
+
+          // Calculate columns based on itemSize
+          property int columns: Math.max(1, Math.floor((width - leftMargin - rightMargin) / itemSize))
+
+          // Recalculate cellWidth to fill available width evenly
           cellWidth: Math.floor((width - leftMargin - rightMargin) / columns)
-          cellHeight: Math.floor(itemSize * 0.7) + Style.marginXS + (Settings.data.wallpaper.hideWallpaperFilenames ? 0 : Style.fontSizeXS + Style.marginM)
 
           leftMargin: Style.marginS
           rightMargin: Style.marginS

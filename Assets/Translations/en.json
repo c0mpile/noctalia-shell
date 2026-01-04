@@ -2663,6 +2663,14 @@
         "selector-position": {
           "description": "Choose where the wallpaper selector panel appears.",
           "label": "Position"
+        },
+        "panel-height": {
+          "description": "Control the height of the wallpaper selector panel as a percentage of screen height.",
+          "label": "Panel height"
+        },
+        "row-count": {
+          "description": "Number of thumbnail rows to display in the wallpaper grid.",
+          "label": "Preferred rows"
         }
       },
       "title": "Wallpaper"
