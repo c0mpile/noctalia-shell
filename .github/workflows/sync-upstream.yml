@@ -14,8 +14,10 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+      - name: Ensure git is installed
+        run: sudo apt-get update && sudo apt-get install -y git
       - name: Sync from Upstream Main
-        run:
+        run: |
           git remote add upstream https://github.com/noctalia/noctalia-shell.git && \
           git fetch upstream main && \
           git reset --hard upstream/main && \
