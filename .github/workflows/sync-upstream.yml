@@ -15,8 +15,8 @@ jobs:
           ref: upstream-main
           fetch-depth: 0
       - name: Sync from Upstream Main
-        run: |
+        run:
           git remote add upstream https://github.com/noctalia/noctalia-shell.git
           git fetch upstream main
           git reset --hard upstream/main
-          git push origin upstream-main --force
+          git push origin main --force
