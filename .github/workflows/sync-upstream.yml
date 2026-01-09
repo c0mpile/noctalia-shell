@@ -12,7 +12,7 @@ jobs:
       - name: Checkout your repo
         uses: actions/checkout@v4
         with:
-          ref: upstream-main
+          ref: main
           fetch-depth: 0
       - name: Sync from Upstream Main
         run:
